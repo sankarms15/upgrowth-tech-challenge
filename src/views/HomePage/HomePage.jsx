@@ -69,7 +69,11 @@ const useStyles = makeStyles((theme) => ({
   },
   error: {
     display: 'flex',
-    alignItems: 'center'
+    alignItems: 'center',
+    marginLeft: theme.spacing(3)
+  },
+  pSpacing1: {
+    paddingLeft: theme.spacing(2)
   }
 }));
 
@@ -104,7 +108,7 @@ function HomePage() {
         />
       </div>
       { isFetching && <div className={classes.loading}>Searching.....</div>}
-      { (error && !isFetching) && <div className={classes.error}><ErrorIcon /><p>Something went wrong. Please try again!...</p></div>
+      { (error && !isFetching) && <div className={classes.error}><ErrorIcon /><p className={classes.pSpacing1}>Something went wrong. Please try again!...</p></div>
       }
       { (error && isFetching) &&  <ImageGridList data={unSplashData} />}      
     </section>
