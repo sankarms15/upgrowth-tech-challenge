@@ -15,6 +15,7 @@ import {
   fade,
   makeStyles,
 } from '@material-ui/core/styles';
+import ErrorIcon from '@material-ui/icons/Error';
 import SearchIcon from '@material-ui/icons/Search';
 
 import { getUnSplashActions } from '../../store/actions/unSplash.actions';
@@ -50,7 +51,8 @@ const useStyles = makeStyles((theme) => ({
   },
   inputRoot: {
     color: 'inherit',
-    border: '1px solid #eee'
+    border: '1px solid #eee',
+    width: '100%'
   },
   inputInput: {
     padding: theme.spacing(1, 1, 1, 0),
@@ -60,12 +62,22 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up('md')]: {
       width: '100vh',
     },
+  },
+  loading: {
+    marginTop: theme.spacing(2),
+    marginLeft: theme.spacing(3)
+  },
+  error: {
+    display: 'flex',
+    alignItems: 'center'
   }
 }));
 
 function HomePage() {
   const classes = useStyles();
   const unSplashData = useSelector(state => state.unSplashData.data);
+  const isFetching = useSelector(state => state.unSplashData.loading);
+  const error = useSelector(state => state.unSplashData.error);
   const excuteQuery = debounce((query) => dispatch(getUnSplashActions.getUnSplash(query), 500));
   const dispatch = useDispatch();
 
@@ -82,16 +94,19 @@ function HomePage() {
             <SearchIcon />
         </div>
         <InputBase
-        placeholder="Search…"
-        onChange={handleOnInputChange}
-        classes={{
-            root: classes.inputRoot,
-            input: classes.inputInput,
-        }}
-        inputProps={{ 'aria-label': 'search' }}
+          placeholder="Search…"
+          onChange={handleOnInputChange}
+          classes={{
+              root: classes.inputRoot,
+              input: classes.inputInput,
+          }}
+          inputProps={{ 'aria-label': 'search' }}
         />
       </div>
-      <ImageGridList data={unSplashData} />
+      { isFetching && <div className={classes.loading}>Searching.....</div>}
+      { (error && !isFetching) && <div className={classes.error}><ErrorIcon /><p>Something went wrong. Please try again!...</p></div>
+      }
+      { (error && isFetching) &&  <ImageGridList data={unSplashData} />}      
     </section>
   );
 }

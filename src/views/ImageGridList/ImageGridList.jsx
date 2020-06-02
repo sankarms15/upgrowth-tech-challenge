@@ -18,6 +18,12 @@ const useStyles = makeStyles((theme) => ({
   gridList: {
     width: 500,
   },
+  noImgs:  {
+    color: "#7bcbc4",
+    height: "140px",
+    paddingTop: "62px",
+    textAlign: "center"
+  }
 }));
 
 function ImageGridList(props) {
@@ -29,6 +35,9 @@ function ImageGridList(props) {
           setResults(props.data.results);
         }
     }, [props.data]);
+    if (results && results.length === 0) {
+      return <div className={classes.noImgs}>Sorry, no Images match your search.</div>
+    }
     return (
       results && <div className={classes.root}>
             <GridList cellHeight={160} className={classes.gridList} cols={3}>
