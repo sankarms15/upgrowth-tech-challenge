@@ -1,7 +1,3 @@
-/**
- * Git Service
- */
-
 import axios from 'axios';
 
 import {
