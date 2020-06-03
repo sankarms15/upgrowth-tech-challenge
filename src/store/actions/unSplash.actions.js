@@ -9,16 +9,16 @@ function getUnSplash(searchQuery) {
     return dispatch => {
         const id = ++requestId;
         dispatch(request());
-        dispatch(failure());
+        dispatch(failure(false));
         gitUnSplashService.getUnSplashPhotos(searchQuery).then((data) => {
             if(id === requestId) {
                 dispatch(success(data));
             } else {
-                dispatch(failure('something failed'));
+                dispatch(failure(true));
             }
         }, (error) => {
             if(id === requestId) {
-                dispatch(failure(error.toString()));
+                dispatch(failure(true));
             }
         });
     };

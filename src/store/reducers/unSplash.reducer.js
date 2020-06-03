@@ -2,7 +2,7 @@ import { unSplashConstants } from '../../constants';
 
 const intialState = {
   loading: false,
-  error: null,
+  error: false,
   data: null
 }
 
