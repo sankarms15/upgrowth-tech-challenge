@@ -110,7 +110,7 @@ function HomePage() {
       { isFetching && <div className={classes.loading}>Searching.....</div>}
       { (error && !isFetching) && <div className={classes.error}><ErrorIcon /><p className={classes.pSpacing1}>Something went wrong. Please try again!...</p></div>
       }
-      { (error && isFetching) &&  <ImageGridList data={unSplashData} />}      
+      { (!isFetching) &&  <ImageGridList data={unSplashData} />}      
     </section>
   );
 }
