@@ -9,6 +9,7 @@ function getUnSplash(searchQuery) {
     return dispatch => {
         const id = ++requestId;
         dispatch(request());
+        dispatch(failure());
         gitUnSplashService.getUnSplashPhotos(searchQuery).then((data) => {
             if(id === requestId) {
                 dispatch(success(data));
